@@ -1,0 +1,13 @@
+import { AuthController } from "./controllers/auth-controller"
+
+export const Routes = [{
+    method: "get",
+    route: "/get-token",
+    controller: AuthController,
+    action: "getToken"
+}, {
+    method: "post",
+    route: "/validate-token",
+    controller: AuthController,
+    action: "validateToken"
+}]
