@@ -10,16 +10,16 @@ AppDataSource.initialize()
     // VALIDATE ENV
     validateEnv();
 
-    const app = express();
+  const app = express();
 
-    // MIDDLEWARE
+  // MIDDLEWARE
 
-    // 1. Body parser
-    app.use(express.json());
+  // 1. Body parser
+  app.use(express.json());
 
-    // 2. Logger
+  // 2. Logger
 
-    // 3. Cookie Parser
+  // 3. Cookie Parser
 
     // 4. Cors
     //app.use(cors);
@@ -55,7 +55,7 @@ AppDataSource.initialize()
       });
     });
 
-    // UNHANDLED ROUTE
+  // UNHANDLED ROUTE
 
     // GLOBAL ERROR HANDLER
 
