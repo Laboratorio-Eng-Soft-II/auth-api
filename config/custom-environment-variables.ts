@@ -1,3 +1,12 @@
 export default {
-    port: 'PORT'
-  };
+  port: 'PORT',
+  postgresConfig: {
+    host: 'POSTGRES_HOST',
+    port: 'POSTGRES_PORT',
+    username: 'POSTGRES_USER',
+    password: 'POSTGRES_PASSWORD',
+    database: 'POSTGRES_DB',
+  },
+  jwtSecret: 'JWT_SECRET',
+  jwtExpiration: 'JWT_EXPIRATION'
+};

@@ -10,4 +10,9 @@ export const Routes = [{
     route: "/validate-token",
     controller: AuthController,
     action: "validateToken"
+}, {
+    method: "post",
+    route: "/add",
+    controller: AuthController,
+    action: "save"
 }]
