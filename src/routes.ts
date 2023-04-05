@@ -1,7 +1,7 @@
 import { AuthController } from "./controllers/auth-controller"
 
 export const Routes = [{
-    method: "get",
+    method: "post",
     route: "/get-token",
     controller: AuthController,
     action: "getToken"

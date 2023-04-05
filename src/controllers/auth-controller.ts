@@ -76,7 +76,6 @@ export class AuthController {
         
         try {
             const decodedToken = jwt.verify(token, jwtSecret)
-            console.log(decodedToken)
         }
         catch (err) {
             return {
