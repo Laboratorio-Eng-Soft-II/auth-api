@@ -3,11 +3,13 @@ import { AuthRegister } from "../entities/AuthRegister"
 import { AppDataSource } from '../utils/data-source'
 import crypto from 'crypto'
 import config from 'config';
+import { Session } from "../entities/Session";
 
 
 export class AuthController {
 
     private authRepository = AppDataSource.getRepository(AuthRegister)
+    private sessionRepository = AppDataSource.getRepository(Session)
     private hash = crypto.createHash('sha512')
 
     async save(request: Request, response: Response, next: NextFunction) {
@@ -56,15 +58,23 @@ export class AuthController {
                     createdIn: Date.now(),
 
                 }, jwtSecret, { expiresIn: jwtExpiration })
+
+                await this.sessionRepository.delete({nusp_cnpj: user.nusp_cnpj})
+
+                await this.sessionRepository.save({
+                    nusp_cnpj: user.nusp_cnpj,
+                    token
+                })
+
                 return { token,
                          nusp_cnpj: user.nusp_cnpj }
             }
             else {
-                return 'Unauthorized!'
+                return response.status(401).send('Unauthorized!')
             }
         }
         else {
-            return 'User not found!'
+            return response.status(401).send('Unauthorized!')
         }
     }
 
@@ -76,12 +86,15 @@ export class AuthController {
         
         try {
             const decodedToken = jwt.verify(token, jwtSecret)
+
+            const session = await this.sessionRepository.findOneBy({ token }) 
+            
+            if(!session){
+                return response.status(401).send('Expired session!')
+            }
         }
         catch (err) {
-            return {
-                status: 401,
-                authStatus: 'Unauthorized'
-            }
+            return response.status(401).send('Unauthorized!')
         }
 
         return {
